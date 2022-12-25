@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SplashScreen">
+
+    <ImageView
+        android:id="@+id/splash_icon"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="250dp"
+        android:src="@drawable/splash_icon">
+    </ImageView>
+
+    <TextView
+        android:id="@+id/name_weather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="What's the Weather?"
+        android:textStyle="bold"
+        android:textSize="32dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/splash_icon"
+        android:layout_marginTop="32dp">
+    </TextView>
+</RelativeLayout>
