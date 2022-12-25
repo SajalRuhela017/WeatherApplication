@@ -40,7 +40,7 @@ class SplashScreen : AppCompatActivity() {
                         Handler(Looper.getMainLooper()).postDelayed({
                             val intent =  Intent(this, MainActivity::class.java)
                             intent.putExtra("Latitude: ", location.latitude.toString())
-                            intent.putExtra("Lomgitude: ", location.longitude.toString())
+                            intent.putExtra("Longitude: ", location.longitude.toString())
                             startActivity(intent)
                             finish()
                         }, 1500)
