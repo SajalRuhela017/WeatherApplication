@@ -1,23 +1,15 @@
 package com.example.weatherapplication
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationManager
-import android.location.LocationRequest
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Looper
-import android.util.Log
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import kotlinx.android.synthetic.main.activity_main.*
+import org.json.JSONObject
+import kotlin.math.ceil
 
 //https://api.openweathermap.org/data/2.5/weather?q=delhi&appid=d782c3641dcc9cbcb8528dfb0245b3e4
 
@@ -27,6 +19,46 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val lat = intent.getStringExtra("Lat")
         val long = intent.getStringExtra("Long")
-        Toast.makeText(this, "Lat: " + lat + " Long: " + long, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this, "Lat: " + lat + " Long: " + long, Toast.LENGTH_SHORT).show()
+        getJsonData(lat , long)
+    }
+
+    private fun getJsonData(lat: String?, long: String?)
+    {
+        val queue = Volley.newRequestQueue(this)
+        val APIKey = "d782c3641dcc9cbcb8528dfb0245b3e4"
+        val url = "https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${APIKey}"
+        val jsonRequest = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            Response.Listener { response ->
+//                Toast.makeText(this, response.toString() , Toast.LENGTH_LONG).show()
+                setValues(response)
+            },
+            Response.ErrorListener {
+                Toast.makeText(this, "Something went wrong!", Toast.LENGTH_SHORT).show()
+            }
+        )
+        queue.add(jsonRequest)
+    }
+    private fun setValues(response: JSONObject?) {
+        city.text = response?.getString("name")
+//        type.text = response?.getJSONArray("weather")?.getJSONObject(1)?.getString("main")
+
+        var temper = response?.getJSONObject("main")?.getString("temp")
+        temper = ((((temper)?.toFloat()?.minus(273.15)))?.toInt()).toString()
+        curr_temp.text = temper
+
+        var minTemp = response?.getJSONObject("main")?.getString("temp_min")
+        minTemp = ((((minTemp)?.toFloat()?.minus(273.15)))?.toInt()).toString()
+        min_temp.text = minTemp + "°"
+
+        var maxTemp = response?.getJSONObject("main")?.getString("temp_max")
+        maxTemp = (((maxTemp)?.toFloat()?.minus(273.15)?.let { ceil(it) })?.toInt()).toString()
+        max_temp.text = maxTemp + "°"
+
+        pressure.text = "Pressure: " + response?.getJSONObject("main")?.getString("pressure") + "Pa"
+        humidity.text = "Humidity: " + response?.getJSONObject("main")?.getString("humidity") + "%"
+        wind_speed.text = "Wind Speed: " + response?.getJSONObject("wind")?.getString("speed") + "kmph"
+        wind_degree.text = "Wind Degree: " + response?.getJSONObject("wind")?.getString("deg") + "°"
     }
 }

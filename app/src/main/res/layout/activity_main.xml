@@ -16,7 +16,7 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sahyog Weather Report"
+            android:text="Weather Report"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="35dp"
