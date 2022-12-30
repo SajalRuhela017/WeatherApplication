@@ -33,14 +33,15 @@ class SplashScreen : AppCompatActivity() {
         if(CheckPermission()) {
             if(LocationEnable()) {
                 mfusedlocation.lastLocation.addOnCompleteListener{
-                        task -> var location: Location?=task.result
+                    task ->
+                    var location: Location?=task.result
                     if(location == null) {
                         NewLocation()
                     }else{
                         Handler(Looper.getMainLooper()).postDelayed({
                             val intent =  Intent(this, MainActivity::class.java)
-                            intent.putExtra("Latitude: ", location.latitude.toString())
-                            intent.putExtra("Longitude: ", location.longitude.toString())
+                            intent.putExtra("Lat", location.latitude.toString())
+                            intent.putExtra("Long", location.longitude.toString())
                             startActivity(intent)
                             finish()
                         }, 1500)

@@ -25,5 +25,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val lat = intent.getStringExtra("Lat")
+        val long = intent.getStringExtra("Long")
+        Toast.makeText(this, "Lat: " + lat + " Long: " + long, Toast.LENGTH_SHORT).show()
     }
 }
