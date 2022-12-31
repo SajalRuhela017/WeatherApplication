@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
         pressure.text = "Pressure: " + response?.getJSONObject("main")?.getString("pressure") + "Pa"
         humidity.text = "Humidity: " + response?.getJSONObject("main")?.getString("humidity") + "%"
-        wind_speed.text = "Wind Speed: " + response?.getJSONObject("wind")?.getString("speed") + "kmph"
+        wind_speed.text = "Wind Speed: " + response?.getJSONObject("wind")?.getString("speed") + "km/h"
         wind_degree.text = "Wind Degree: " + response?.getJSONObject("wind")?.getString("deg") + "°"
     }
 }
