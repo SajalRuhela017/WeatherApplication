@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         val jsonRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
             Response.Listener { response ->
-//                Toast.makeText(this, response.toString() , Toast.LENGTH_LONG).show()
                 setValues(response)
             },
             Response.ErrorListener {
@@ -42,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun setValues(response: JSONObject?) {
         city.text = response?.getString("name")
-//        type.text = response?.getJSONArray("weather")?.getJSONObject(1)?.getString("main")
+        type.text = response?.getJSONArray("weather")?.getJSONObject(0)?.getString("main")
 
         var temper = response?.getJSONObject("main")?.getString("temp")
         temper = ((((temper)?.toFloat()?.minus(273.15)))?.toInt()).toString()
